@@ -2,8 +2,14 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Admin\Resources\FooterLinkResource;
+use App\Filament\Admin\Resources\JargonResource;
+use App\Filament\Admin\Resources\LogoResource;
+use App\Filament\Admin\Resources\PageConfigResource;
 use App\Filament\Admin\Resources\PageResource;
 use App\Filament\Admin\Resources\PostResource;
+use App\Filament\Admin\Resources\ProductResource;
+use App\Filament\Admin\Resources\SeoResource;
 use App\Filament\Cms\PayrollResource;
 use Filament\Enums\ThemeMode;
 use Filament\Http\Middleware\Authenticate;
@@ -89,8 +95,13 @@ class CmsPanelProvider extends PanelProvider
                     ->shouldShowAvatarForm(),
             ])
             ->resources([
-                PostResource::class,
-                PageResource::class,
+                SeoResource::class,
+                LogoResource::class,
+                JargonResource::class,
+                ProductResource::class,
+                PageConfigResource::class,
+                FooterLinkResource::class,
+
             ])
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->middleware([
