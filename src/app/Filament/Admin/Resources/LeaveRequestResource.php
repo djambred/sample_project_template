@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class LeaveRequestResource extends Resource
 {
@@ -19,6 +20,10 @@ class LeaveRequestResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationGroup = 'HRM';
+    public static function canAccess(): bool
+    {
+        return Auth::user()?->hasAnyRole(['hr_admin', 'super_admin', 'employee']);
+    }
 
     public static function form(Form $form): Form
     {

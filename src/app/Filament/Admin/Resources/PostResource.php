@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class PostResource extends Resource
 {
@@ -20,6 +21,11 @@ class PostResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static ?string $navigationGroup = 'CMS';
+
+    public static function canAccess(): bool
+    {
+        return Auth::user()?->hasAnyRole(['cms_admin', 'super_admin']);
+    }
 
     public static function form(Form $form): Form
     {
