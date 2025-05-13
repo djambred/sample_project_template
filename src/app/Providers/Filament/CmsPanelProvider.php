@@ -30,6 +30,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Joaopaulolndev\FilamentEditProfile\Pages\EditProfilePage;
+use Illuminate\Support\Facades\Auth;
 
 class CmsPanelProvider extends PanelProvider
 {
@@ -58,13 +59,17 @@ class CmsPanelProvider extends PanelProvider
                 //     ->label('Administration'),
             ])
             ->userMenuItems([
-                'profile' => MenuItem::make()
-                    ->label(fn () => auth()->user()->name)
-                    ->url(fn (): string => EditProfilePage::getUrl())
-                    ->icon('heroicon-m-user-circle'),
-                // 'profile' => \Filament\Navigation\MenuItem::make()
+                // 'profile' => MenuItem::make()
                 //     ->label(fn () => auth()->user()->name)
+                //     ->url(fn (): string => EditProfilePage::getUrl())
                 //     ->icon('heroicon-m-user-circle'),
+                // // 'profile' => \Filament\Navigation\MenuItem::make()
+                // //     ->label(fn () => auth()->user()->name)
+                // //     ->icon('heroicon-m-user-circle'),
+                'profile' => MenuItem::make()
+            ->label(fn () => Auth::user()->name)  // Use the Auth facade
+            ->url(fn (): string => EditProfilePage::getUrl())
+            ->icon('heroicon-m-user-circle'),
             ])
             ->plugins([
                 \Hasnayeen\Themes\ThemesPlugin::make(),
